@@ -44,7 +44,7 @@
                             <div class="col-md-6">
                                 <select class="form-control" name="gender">
                                     <option value="1">Male</option>
-                                    <option value="2">Female</option>
+                                    <option value="0">Female</option>
                                 </select>
 
                                 @if ($errors->has('gender'))
