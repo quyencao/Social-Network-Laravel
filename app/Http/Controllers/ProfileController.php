@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -28,6 +29,12 @@ class ProfileController extends Controller
             'location' => $request->location,
             'about' => $request->about
         ]);
+
+        if($request->hasFile('avatar')) {
+            Auth::user()->update([
+                'avatar' => $request->avatar->store('public/avatars')
+            ]);
+        }
 
         return redirect()->route('profile', ['slug' => Auth::user()->slug])->with('Profile updated successfully!!!');
     }
