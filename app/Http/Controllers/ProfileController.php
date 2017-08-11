@@ -36,6 +36,6 @@ class ProfileController extends Controller
             ]);
         }
 
-        return redirect()->route('profile', ['slug' => Auth::user()->slug])->with('Profile updated successfully!!!');
+        return redirect()->route('profile', ['slug' => Auth::user()->slug])->with('success', 'Profile updated successfully!!!');
     }
 }

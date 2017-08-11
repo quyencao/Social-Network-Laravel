@@ -78,5 +78,17 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
+    <script>
+        @if(session('success'))
+            new Noty({
+               type: 'success',
+               layout: 'topRight',
+               text: '{{ session('success') }}',
+               timeout: 1000,
+               progressBar: false
+            }).show();
+        @endif
+    </script>
 </body>
 </html>
