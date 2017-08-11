@@ -4,7 +4,7 @@
     <div class="container">
         <div class="col-lg-4">
             <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading" style="text-align: center">
                     {{ $user->name }}'s Profile
                 </div>
                 <div class="panel-body" style="text-align: center">
