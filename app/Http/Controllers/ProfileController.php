@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class ProfileController extends Controller
 {
     public function index($slug) {
-        $user = User::where('slug', $slug)->first();
+        $user = User::with('profile')->where('slug', $slug)->first();
         return view('profiles.profile', compact('user'));
     }
 
