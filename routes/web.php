@@ -36,6 +36,10 @@ Route::get('/is_friend', function () {
     return App\User::find(5)->is_friends_with(1);
 });
 
+Route::get('/ch', function () {
+    return App\User::find(1)->has_pending_friend_request_sent_to(2);
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

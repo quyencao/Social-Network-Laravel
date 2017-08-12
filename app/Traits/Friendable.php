@@ -16,10 +16,10 @@
             ]);
 
             if($friendShips) {
-                return response()->json($friendShips,200);
+                return 1;
             }
 
-            return response()->json('fails', 501);
+            return 0;
 
         }
 
