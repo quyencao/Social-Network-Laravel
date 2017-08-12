@@ -27,6 +27,15 @@ Route::get('/friends', function () {
     return App\User::find(4)->friends();
 });
 
+
+Route::get('/ids', function () {
+    return App\User::find(5)->friends_ids();
+});
+
+Route::get('/is_friend', function () {
+    return App\User::find(5)->is_friends_with(1);
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
