@@ -64,7 +64,7 @@
             $pending_friends_requests = User::whereIn('id', $f1)
                                              ->get();
 
-            return $pending_friends_requests;
+            return $pending_friends_requests->toArray();
         }
 
         public function friends_ids() {
@@ -78,6 +78,41 @@
             }
 
             return response()->json('false', 200);
+        }
+
+        public function pending_friends_requests_ids() {
+            return collect($this->pending_friends_requests())->pluck('id')->toArray();
+        }
+
+        public function pending_friends_requests_sent() {
+            // User that this user sent request to but not accept yet
+            $f1 = Friendships::where('requester', $this->id)
+                             ->where('status', 0)
+                             ->pluck('user_requested');
+
+            $pending_friends_requests_sent = User::whereIn('id', $f1)->get();
+
+            return $pending_friends_requests_sent;
+        }
+
+        public function pending_friends_requests_sent_ids() {
+            return collect($this->pending_friends_requests_sent())->pluck('id')->toArray();
+        }
+
+        public function has_pending_requests_from($user_id) {
+            if(collect($this->pending_friends_requests_ids())->contains($user_id)) {
+                return response()->json('true', 200);
+            }
+
+            return response()->json('false',200);
+        }
+
+        public function has_pending_friend_request_sent_to($user_id) {
+            if(collect($this->pending_friends_requests_sent_ids())->contains($user_id)) {
+                return 1;
+            }
+
+            return 0;
         }
 
 //        public function friends() {
