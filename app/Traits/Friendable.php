@@ -2,6 +2,7 @@
     namespace App\Traits;
 
     use App\Friendships;
+    use App\User;
 
     trait Friendable {
 
@@ -35,5 +36,21 @@
                 return response()->json('fail', 501);
             }
 
+        }
+
+        public function friends() {
+            $f1 = Friendships::select('user_requested as friends')
+                ->where('requester', $this->id)
+                ->where('status', 1);
+
+            $f2 = Friendships::select('requester as friends')
+                    ->where('user_requested', $this->id)
+                    ->where('status', 1)
+                    ->union($f1)
+                    ->get();
+
+            $friends = User::whereIn('id', $f2->pluck('friends'))->get();
+
+            return response()->json($friends);
         }
     }
