@@ -5,7 +5,10 @@
     use App\User;
 
     trait Friendable {
-
+        /** Thêm bạn
+         * @param $user_requested_id : id của bạn cần thêm
+         * @return \Illuminate\Http\JsonResponse
+         */
         public function add_friend($user_requested_id) {
             $friendShips = Friendships::create([
                'requester' => $this->id,
@@ -20,6 +23,10 @@
 
         }
 
+        /** Chấp nhận lời kết bạn
+         * @param $requester : id của người gửi lời mời kết bạn tới người dùng này
+         * @return \Illuminate\Http\JsonResponse
+         */
         public function accept_friend($requester) {
 
             $friendsShip = Friendships::where('requester', $requester)
@@ -38,6 +45,10 @@
 
         }
 
+        /**
+         * Lấy lại list bạn của người dùng này
+         * @return \Illuminate\Database\Eloquent\Collection|static[]
+         */
         public function friends() {
             $f1 = Friendships::select('user_requested as friends')
                 ->where('requester', $this->id)
@@ -54,6 +65,10 @@
             return $friends;
         }
 
+        /**
+         * Lấy lại list user đã gửi lời mời kết bạn đến user này nhưng chưa chấp nhận
+         * @return array
+         */
         public function pending_friends_requests() {
             // List id of user request friend this user
             $f1 = Friendships::select('requester as pending_friends')
@@ -67,23 +82,40 @@
             return $pending_friends_requests->toArray();
         }
 
+        /**
+         * Lấy list ids của những user là bạn của mình
+         * @return static
+         */
         public function friends_ids() {
             return collect($this->friends())->pluck('id');
         }
 
+        /**
+         * Kiểm tra xem mình có là bạn với 1 user nào đó
+         * @param $user_id
+         * @return int
+         */
         public function is_friends_with($user_id) {
             // Or use php in_array($user_id, $this->friends_ids->toArray());
             if(collect($this->friends_ids())->contains($user_id)) {
-                return response()->json('true', 200);
+                return 1;
             }
 
-            return response()->json('false', 200);
+            return 0;
         }
 
+        /**
+         * List id của những user đã gửi lời mời kết bạn đến mình nhưng chưa được chấp nhận
+         * @return array
+         */
         public function pending_friends_requests_ids() {
             return collect($this->pending_friends_requests())->pluck('id')->toArray();
         }
 
+        /**
+         * List user mà mình đã gửi lời mời kết bạn nhưng chưa được chấp nhận
+         * @return \Illuminate\Database\Eloquent\Collection|static[]
+         */
         public function pending_friends_requests_sent() {
             // User that this user sent request to but not accept yet
             $f1 = Friendships::where('requester', $this->id)
@@ -95,18 +127,32 @@
             return $pending_friends_requests_sent;
         }
 
+        /**
+         * List id của những user mà mình đã gửi lời mời kết bạn nhưng chưa được chấp nhận
+         * @return array
+         */
         public function pending_friends_requests_sent_ids() {
             return collect($this->pending_friends_requests_sent())->pluck('id')->toArray();
         }
 
+        /**
+         * Kiểm tra xem mình có nhận được lời mời kết bạn từ user_id ko
+         * @param $user_id
+         * @return int
+         */
         public function has_pending_requests_from($user_id) {
             if(collect($this->pending_friends_requests_ids())->contains($user_id)) {
-                return response()->json('true', 200);
+                return 1;
             }
 
-            return response()->json('false',200);
+            return 0;
         }
 
+        /**
+         * Kiểm tra xem mình có gửi lời mời kết bạn cho user_id ko
+         * @param $user_id
+         * @return int
+         */
         public function has_pending_friend_request_sent_to($user_id) {
             if(collect($this->pending_friends_requests_sent_ids())->contains($user_id)) {
                 return 1;
