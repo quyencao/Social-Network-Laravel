@@ -50,4 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/update', 'ProfileController@update')->name('profile.update');
 
     Route::get('/profile/{slug}', 'ProfileController@index')->name('profile');
+
+    Route::get('/check_relationship_status/{id}', function ($id) {
+       return App\User::find($id);
+    });
 });
