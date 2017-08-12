@@ -51,7 +51,5 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/profile/{slug}', 'ProfileController@index')->name('profile');
 
-    Route::get('/check_relationship_status/{id}', function ($id) {
-       return App\User::find($id);
-    });
+    Route::get('/check_relationship_status/{id}', 'FriendshipsController@check')->name('check');
 });
