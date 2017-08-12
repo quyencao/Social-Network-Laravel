@@ -24,7 +24,7 @@ Route::get('accept', function () {
 });
 
 Route::get('/friends', function () {
-    return App\User::find(1)->friends();
+    return App\User::find(4)->friends();
 });
 
 Auth::routes();

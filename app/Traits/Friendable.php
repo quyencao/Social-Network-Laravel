@@ -51,6 +51,23 @@
 
             $friends = User::whereIn('id', $f2->pluck('friends'))->get();
 
-            return response()->json($friends);
+            return $friends;
+        }
+
+        public function pending_friends_requests() {
+            // List id of user request friend this user
+            $f1 = Friendships::select('requester as pending_friends')
+                        ->where('status', 0)
+                        ->where('user_requested', $this->id)
+                        ->pluck('pending_friends');
+
+            $pending_friends_requests = User::whereIn('id', $f1)
+                                             ->get();
+
+            return $pending_friends_requests;
+        }
+
+        public function friends_id() {
+            return $this->friends()->pluck('id');
         }
     }
