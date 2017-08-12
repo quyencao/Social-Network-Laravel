@@ -37,7 +37,7 @@ Route::get('/is_friend', function () {
 });
 
 Route::get('/ch', function () {
-    return App\User::find(1)->has_pending_friend_request_sent_to(2);
+    return App\User::find(5)->add_friend(3);
 });
 
 Auth::routes();

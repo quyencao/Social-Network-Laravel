@@ -10,6 +10,26 @@
          * @return \Illuminate\Http\JsonResponse
          */
         public function add_friend($user_requested_id) {
+            // Nếu add friend to myself
+            if($this->id == $user_requested_id) {
+                return 0;
+            }
+
+            // Nếu user này và người nhận $user_requested_id đã là bạn
+            if($this->is_friends_with($user_requested_id) == 1) {
+                return 'Already friends';
+            }
+
+            // Nếu add friend đã gửi lời mời trước đó
+            if($this->has_pending_friend_request_sent_to($user_requested_id) == 1) {
+                return 'You already sent request to this user';
+            }
+
+            // Nếu đã có lời mời từ $user_requested_id
+            if($this->has_pending_requests_from($user_requested_id) == 1) {
+                return $this->accept_friend($user_requested_id);
+            }
+
             $friendShips = Friendships::create([
                'requester' => $this->id,
                'user_requested' => $user_requested_id
@@ -28,6 +48,10 @@
          * @return \Illuminate\Http\JsonResponse
          */
         public function accept_friend($requester) {
+            //Nếu user này không có lời mời từ $requester
+            if($this->has_pending_requests_from($requester) == 0) {
+                return 0;
+            }
 
             $friendsShip = Friendships::where('requester', $requester)
                                     ->where('user_requested', $this->id)
@@ -38,9 +62,9 @@
                    'status' => 1
                 ]);
 
-                return response()->json('ok', 200);
+                return 1;
             } else {
-                return response()->json('fail', 501);
+                return 0;
             }
 
         }
