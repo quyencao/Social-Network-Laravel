@@ -799,6 +799,10 @@ window.Noty = __webpack_require__(35);
 
 window.Vue = __webpack_require__(36);
 
+var VueAxios = __webpack_require__(51);
+
+Vue.use(VueAxios, axios);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -45006,8 +45010,6 @@ module.exports = function normalizeComponent (
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
 //
@@ -45022,7 +45024,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -45035,7 +45036,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/check_relationship_status/' + this.profile_user_id).then(function (response) {
+        this.axios.get('/check_relationship_status/' + this.profile_user_id).then(function (response) {
             _this.status = response.data.status;
             _this.loading = false;
         });
@@ -45052,7 +45053,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             this.loading = true;
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/add_friend/' + this.profile_user_id).then(function (response) {
+            this.axios.get('/add_friend/' + this.profile_user_id).then(function (response) {
                 _this2.loading = false;
                 if (response.data == 1) {
                     _this2.status = 'waiting';
@@ -45063,9 +45064,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this3 = this;
 
             this.loading = true;
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/accept_friend/' + this.profile_user_id).then(function (response) {
+            this.axios.get('/accept_friend/' + this.profile_user_id).then(function (response) {
                 _this3.loading = false;
-                console.log(response);
                 if (response.data == 1) {
                     _this3.status = 'friend';
                 }
@@ -45112,6 +45112,23 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(o){return typeof o}:function(o){return o&&"function"==typeof Symbol&&o.constructor===Symbol&&o!==Symbol.prototype?"symbol":typeof o};!function(){function o(e,t){if(!o.installed){if(o.installed=!0,!t)return void console.error("You have to install axios");e.axios=t,Object.defineProperties(e.prototype,{axios:{get:function(){return t}},$http:{get:function(){return t}}})}}"object"==( false?"undefined":_typeof(exports))?module.exports=o: true?!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function(){return o}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):window.Vue&&window.axios&&Vue.use(o,window.axios)}();
 
 /***/ })
 /******/ ]);

@@ -13,7 +13,6 @@
 </template>
 
 <script>
-    import axios from 'axios'
 
     export default {
         props: {
@@ -23,7 +22,7 @@
           }
         },
         mounted() {
-            axios.get('/check_relationship_status/' + this.profile_user_id)
+            this.axios.get('/check_relationship_status/' + this.profile_user_id)
                 .then((response) => {
                     this.status = response.data.status;
                     this.loading = false;
@@ -38,7 +37,7 @@
         methods: {
             add_friend() {
                 this.loading = true;
-                axios.get('/add_friend/' + this.profile_user_id)
+                this.axios.get('/add_friend/' + this.profile_user_id)
                     .then((response) => {
                         this.loading = false;
                         if(response.data == 1) {
@@ -48,10 +47,9 @@
             },
             accept_friend() {
                 this.loading = true;
-                axios.get('/accept_friend/' + this.profile_user_id)
+                this.axios.get('/accept_friend/' + this.profile_user_id)
                     .then((response) => {
                         this.loading = false;
-                        console.log(response);
                         if(response.data == 1) {
                             this.status = 'friend';
                         }

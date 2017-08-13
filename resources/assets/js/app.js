@@ -11,6 +11,10 @@ window.Noty = require('noty');
 
 window.Vue = require('vue');
 
+let VueAxios = require('vue-axios');
+
+Vue.use(VueAxios, axios);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
