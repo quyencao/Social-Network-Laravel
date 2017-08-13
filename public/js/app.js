@@ -45057,6 +45057,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.loading = false;
                 if (response.data == 1) {
                     _this2.status = 'waiting';
+                    new Noty({
+                        type: 'success',
+                        layout: 'topRight',
+                        text: 'Friend request sent',
+                        timeout: 1000,
+                        progressBar: false
+                    }).show();
                 }
             });
         },
@@ -45068,6 +45075,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.loading = false;
                 if (response.data == 1) {
                     _this3.status = 'friend';
+                    new Noty({
+                        type: 'success',
+                        layout: 'topRight',
+                        text: 'You are now friends!',
+                        timeout: 1000,
+                        progressBar: false
+                    }).show();
                 }
             });
         }

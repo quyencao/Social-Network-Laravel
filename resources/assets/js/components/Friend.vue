@@ -42,6 +42,13 @@
                         this.loading = false;
                         if(response.data == 1) {
                             this.status = 'waiting';
+                            new Noty({
+                                type: 'success',
+                                layout: 'topRight',
+                                text: 'Friend request sent',
+                                timeout: 1000,
+                                progressBar: false
+                            }).show();
                         }
                     });
             },
@@ -50,8 +57,15 @@
                 this.axios.get('/accept_friend/' + this.profile_user_id)
                     .then((response) => {
                         this.loading = false;
-                        if(response.data == 1) {
+                        if (response.data == 1) {
                             this.status = 'friend';
+                            new Noty({
+                                type: 'success',
+                                layout: 'topRight',
+                                text: 'You are now friends!',
+                                timeout: 1000,
+                                progressBar: false
+                            }).show();
                         }
                     });
             }
