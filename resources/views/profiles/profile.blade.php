@@ -17,9 +17,11 @@
                     </p>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <friend :profile_user_id="{{ $user->id }}"></friend>
-            </div>
+            @if(Auth::id() !== $user->id)
+                <div class="panel panel-default">
+                    <friend :profile_user_id="{{ $user->id }}"></friend>
+                </div>
+            @endif
             <div class="panel panel-default">
                 <div class="panel-heading" style="text-align: center">
                     About me

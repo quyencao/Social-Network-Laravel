@@ -27,4 +27,8 @@ class FriendshipsController extends Controller
         // Send notification, broadcast ...
         return Auth::user()->add_friend($id);
     }
+
+    public function accept($id) {
+        return Auth::user()->accept_friend($id);
+    }
 }
