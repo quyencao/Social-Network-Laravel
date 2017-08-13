@@ -22,4 +22,9 @@ class FriendshipsController extends Controller
 
         return response()->json(['status' => 0]);
     }
+
+    public function add($id) {
+        // Send notification, broadcast ...
+        return Auth::user()->add_friend($id);
+    }
 }

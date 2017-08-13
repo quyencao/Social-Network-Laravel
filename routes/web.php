@@ -52,4 +52,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{slug}', 'ProfileController@index')->name('profile');
 
     Route::get('/check_relationship_status/{id}', 'FriendshipsController@check')->name('check');
+
+    Route::get('/add_friend/{id}', 'FriendshipsController@add')->name('add');
 });
